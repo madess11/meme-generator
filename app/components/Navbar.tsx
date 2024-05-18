@@ -97,16 +97,6 @@ export function StickyNavbar() {
       </div>
       <MobileNav open={openNav}>
         {navList}
-        <div className="flex items-center gap-x-1">
-
-          <Link href={"/generer-un-meme"}>
-            <Tooltip content="Générer un nouveau mème">
-              <Button fullWidth variant="gradient" size="sm" className="" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                <span>Nouveau</span>
-              </Button>
-            </Tooltip>
-          </Link>
-        </div>
       </MobileNav>
     </Navbar>
   );
