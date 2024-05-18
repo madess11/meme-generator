@@ -11,6 +11,10 @@ import {
     TwitterIcon,
 } from 'react-share';
 import TextEditor, { TextOptions } from './TextEditor';
+import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
+import { firebaseDatabase, firebaseStorage } from '../core/config/firebase';
+import { set,ref as dbRef } from 'firebase/database';
+// import { storage } from "./firebase"; // Adjust the path as necessary
 
 const ImageEditor = () => {
     const [image, setImage] = useState<string | null>(null);
@@ -44,7 +48,6 @@ const ImageEditor = () => {
         });
     };
 
-
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
             const reader = new FileReader();
@@ -54,7 +57,6 @@ const ImageEditor = () => {
             reader.readAsDataURL(event.target.files[0]);
         }
     };
-
 
     const handleDownload = () => {
         if (imageNode) {
@@ -67,35 +69,49 @@ const ImageEditor = () => {
             document.body.removeChild(link);
         }
     };
-    const handleSave = () => {
-        
+
+    const handleSave = async () => {
+        if (imageNode) {
+            const dataURL = imageNode.toDataURL();
+            const blob = await (await fetch(dataURL)).blob();
+            const imageStorageRef = storageRef(firebaseStorage, `memes/${Date.now()}.png`);
+
+            try {
+                await uploadBytes(imageStorageRef, blob);
+                const downloadURL = await getDownloadURL(imageStorageRef);
+                console.log("File available at", downloadURL);
+
+                const imageInfo = {
+                    url: downloadURL,
+                    createdAt: Date.now(),
+                };
+                const imageDatabaseRef = dbRef(firebaseDatabase, 'memes/' + Date.now());
+                await set(imageDatabaseRef, imageInfo);
+
+                console.log("Image information saved to Realtime Database");
+            } catch (error) {
+                console.error("Error uploading file or saving to database:", error);
+            }
+        }
     };
 
     return (
         <div>
             <Typography as={'h1'} className='text-3xl my-2 font-bold' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Générer un mème</Typography>
-            <div className='grid grid-cols-5 gap-2   bg-gray-100'>
-
-                <div className='col-span-3 rounded-xl flex flex-col gap-1 justify-end' >
-
+            <div className='grid grid-cols-5 gap-2 bg-gray-100'>
+                <div className='col-span-3 rounded-xl flex flex-col gap-1 justify-end'>
                     <Input type="file" name='image' label='Image' accept="image/*" onChange={handleImageUpload} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined} />
                     <div className='my-5'>
-
                         {
                             imageURL ? (
-
                                 <>
-
-
-                                    <Stage ref={setImageNode} width={500} height={500} >
+                                    <Stage ref={setImageNode} width={500} height={500}>
                                         <Layer>
                                             <Image image={imageURL} width={500} height={500} />
-                                            <Text  {...textOptions} />
+                                            <Text {...textOptions} />
                                         </Layer>
                                     </Stage>
-                                    <div className=' bg-white p-5 mt-5 rounded-xl gap-1 flex' >
-
-
+                                    <div className='bg-white p-5 mt-5 rounded-xl gap-1 flex'>
                                         <Button onClick={handleSave} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Enregistrer</Button>
                                         <Button onClick={handleDownload} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Télécharger</Button>
                                     </div>
@@ -109,24 +125,13 @@ const ImageEditor = () => {
                             )
                         }
                     </div>
-
-
                 </div>
-                <div className='col-span-2 rounded-xl bg-white p-5' >
+                <div className='col-span-2 rounded-xl bg-white p-5'>
                     <Typography className='text-xl font-semibold mb-2' placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Options du texte</Typography>
-
                     <div>
                         <TextEditor textOptions={textOptions} onChange={handleTextChange} />
                     </div>
-
-                    <div>
-                        <FacebookShareButton url={"google.com"}>
-                            <FacebookIcon size={32} round />
-                        </FacebookShareButton>
-                        <TwitterShareButton url={"ddd.com"}>
-                            <TwitterIcon size={32} round />
-                        </TwitterShareButton>
-                    </div>
+                    
                 </div>
             </div>
         </div>
