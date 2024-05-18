@@ -79,13 +79,13 @@ const MemeView: React.FC<{ id: string }> = ({ id }) => {
                             </Button>
                         </a>
 
-                        <FacebookShareButton url={"google.com"}>
+                        <FacebookShareButton url={window.location.href}>
                             <FacebookIcon size={32} round />
                         </FacebookShareButton>
-                        <TwitterShareButton url={"ddd.com"}>
+                        <TwitterShareButton url={window.location.href}>
                             <TwitterIcon size={32} round />
                         </TwitterShareButton>
-                        <WhatsappShareButton url='lll'>
+                        <WhatsappShareButton url={window.location.href}>
                             <WhatsappIcon size={32} round />
                         </WhatsappShareButton>
                     </div>
