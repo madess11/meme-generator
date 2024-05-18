@@ -14,12 +14,15 @@ import TextEditor, { TextOptions } from './TextEditor';
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage";
 import { firebaseDatabase, firebaseStorage } from '../core/config/firebase';
 import { set,ref as dbRef } from 'firebase/database';
+import { useRouter } from 'next/navigation';
 // import { storage } from "./firebase"; // Adjust the path as necessary
 
 const ImageEditor = () => {
     const [image, setImage] = useState<string | null>(null);
     const [imageURL] = useImage(image || '');
     const [imageNode, setImageNode] = useState<any>(null);
+
+    const router = useRouter()
 
     const [textOptions, setTextOptions] = useState<TextOptions>({
         direction: 'ltr',
@@ -79,7 +82,6 @@ const ImageEditor = () => {
             try {
                 await uploadBytes(imageStorageRef, blob);
                 const downloadURL = await getDownloadURL(imageStorageRef);
-                console.log("File available at", downloadURL);
 
                 const imageInfo = {
                     url: downloadURL,
@@ -88,7 +90,8 @@ const ImageEditor = () => {
                 const imageDatabaseRef = dbRef(firebaseDatabase, 'memes/' + Date.now());
                 await set(imageDatabaseRef, imageInfo);
 
-                console.log("Image information saved to Realtime Database");
+                router.push("/")
+
             } catch (error) {
                 console.error("Error uploading file or saving to database:", error);
             }
@@ -107,7 +110,7 @@ const ImageEditor = () => {
                                 <>
                                     <Stage ref={setImageNode} width={500} height={500}>
                                         <Layer>
-                                            <Image image={imageURL} width={500} height={500} />
+                                            <Image image={imageURL} width={500} height={500} alt="meme" />
                                             <Text {...textOptions} />
                                         </Layer>
                                     </Stage>

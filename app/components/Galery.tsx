@@ -43,7 +43,7 @@ const Gallery: React.FC = () => {
                     <Typography className="text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Aucun mème disponible</Typography>
                 ) : (
                     Object.entries(memes).map(([k,meme], index) => (
-                        <Link href={`galerie/${k}`}>
+                        <Link href={`galerie/${k}`} key={k}>
                             <MemeCard key={index} meme={meme} />
                         </Link>
                     ))

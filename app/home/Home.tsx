@@ -29,9 +29,14 @@ const Home: React.FC = () => {
                     <Typography className="text-xl mb-8" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                         Créez et partagez vos propres mèmes facilement.
                     </Typography>
-                    <Link href="/generer-un-meme" passHref>
-                        <Button size="lg" color="blue" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Créer un Mème</Button>
-                    </Link>
+                    <div className="flex gap-2  justify-center">
+                        <Link href="/generer-un-meme" passHref>
+                            <Button size="lg" color="blue" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Créer un Mème</Button>
+                        </Link>
+                        <Link href="/galerie" passHref>
+                            <Button variant="outlined" size="lg" color="orange" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Galerie</Button>
+                        </Link>
+                    </div>
                 </div>
 
                 <div className="latest-memes my-12">
@@ -42,8 +47,10 @@ const Home: React.FC = () => {
                         {Object.keys(memes).length === 0 ? (
                             <Typography className="text-center w-full" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Aucun mème disponible</Typography>
                         ) : (
-                            Object.entries(memes).slice(0, 4).map(([id, meme]) => (
-                                <MemeCard meme={meme} />
+                            Object.entries(memes).map(([k, meme], index) => (
+                                <Link href={`galerie/${k}`} key={k}>
+                                    <MemeCard key={index} meme={meme} />
+                                </Link>
                             ))
                         )}
                     </div>

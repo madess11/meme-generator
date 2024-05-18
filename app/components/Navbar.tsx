@@ -28,8 +28,8 @@ export function StickyNavbar() {
         variant="small"
         color="blue-gray"
         className="p-1 font-normal" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}      >
-        <Link href="/galerie" className="flex items-center">
-          Galéries des mèmes
+        <Link href="/galerie" className="flex items-center" passHref>
+          Galerie
         </Link>
       </Typography>
 
@@ -42,7 +42,7 @@ export function StickyNavbar() {
         <Typography
           as={Link}
           href="/"
-          className="mr-4 cursor-pointer py-1.5 font-bold" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
+          className="mr-4 cursor-pointer py-1.5 font-bold uppercase" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          >
           Générateur de mèmes
         </Typography>
         <div className="flex items-center gap-4">
