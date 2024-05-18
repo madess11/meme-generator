@@ -47,7 +47,7 @@ const Home: React.FC = () => {
                         {Object.keys(memes).length === 0 ? (
                             <Typography className="text-center w-full" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Aucun mème disponible</Typography>
                         ) : (
-                            Object.entries(memes).map(([k, meme], index) => (
+                            Object.entries(memes).slice(0,4).map(([k, meme], index) => (
                                 <Link href={`galerie/${k}`} key={k}>
                                     <MemeCard key={index} meme={meme} />
                                 </Link>
