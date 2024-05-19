@@ -38,7 +38,7 @@ const Gallery: React.FC = () => {
             <Typography as="h1" className="text-3xl my-4 font-bold" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                 Galerie de Mèmes
             </Typography>
-            <div className="grid grid-cols-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {Object.keys(memes).length === 0 ? (
                     <Typography className="text-center" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Aucun mème disponible</Typography>
                 ) : (

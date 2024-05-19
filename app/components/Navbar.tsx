@@ -28,7 +28,7 @@ export function StickyNavbar() {
         variant="small"
         color="blue-gray"
         className="p-1 font-normal" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}      >
-        <Link href="/galerie" className="flex items-center" passHref>
+        <Link href="/gallery" className="flex items-center" passHref>
           Galerie
         </Link>
       </Typography>
@@ -49,7 +49,7 @@ export function StickyNavbar() {
           <div className="mr-4 hidden lg:block">{navList}</div>
           <div className="flex items-center gap-x-1">
 
-            <Link href={"/generer-un-meme"}>
+            <Link href={"/create"}>
               <Tooltip content="Générer un nouveau mème">
                 <Button fullWidth variant="gradient" size="sm" className="" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                   <span>Nouveau</span>

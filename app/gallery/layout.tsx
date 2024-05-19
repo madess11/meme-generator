@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Galérie - générateur de mèmes",
+  title: "Galerie - générateur de mèmes",
   description: "Générer un mème",
 };
 

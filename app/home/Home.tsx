@@ -30,10 +30,10 @@ const Home: React.FC = () => {
                         Créez et partagez vos propres mèmes facilement.
                     </Typography>
                     <div className="flex gap-2  justify-center">
-                        <Link href="/generer-un-meme" passHref>
+                        <Link href="/create" passHref>
                             <Button size="lg" color="blue" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Créer un Mème</Button>
                         </Link>
-                        <Link href="/galerie" passHref>
+                        <Link href="/gallery" passHref>
                             <Button variant="outlined" size="lg" color="orange" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>Galerie</Button>
                         </Link>
                     </div>
