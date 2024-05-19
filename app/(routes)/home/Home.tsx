@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Typography } from '@material-tailwind/react';
 import Link from 'next/link';
-import { fetchMemes } from '../components/Galery';
-import { Meme } from '../core/types';
-import MemeCard from '../components/MemeCard';
+import { fetchMemes } from '../../components/Galery';
+import { Meme } from '../../core/types';
+import MemeCard from '../../components/MemeCard';
 
 const Home: React.FC = () => {
     const [memes, setMemes] = useState<{ [key: string]: Meme }>({});

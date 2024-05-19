@@ -1,8 +1,4 @@
-// import { getAuth, RecaptchaVerifier } from "firebase-admin/auth";
-import { getMessaging } from "firebase/messaging";
 import { initializeApp } from 'firebase/app';
-import { getAuth } from "firebase/auth";
-import { getFunctions } from 'firebase/functions';
 import { getStorage, ref as storageRef } from "firebase/storage"
 import { getDatabase } from "firebase/database";
 
@@ -23,13 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-const auth = getAuth(firebaseApp);
-auth.useDeviceLanguage();
-
-// const firebaseCloudMessaging = process.env.NODE_ENV !== "test" ? getMessaging(firebaseApp) : null
-const firebaseFunctions = getFunctions(firebaseApp)
 const firebaseStorage = getStorage(firebaseApp)
 const firebaseDatabase = getDatabase(firebaseApp)
-const firestoreDatabase = getFirestore(firebaseApp)
 
-export { auth, firebaseApp, firebaseDatabase,  firebaseFunctions, firebaseStorage, firestoreDatabase, storageRef }
+export {  firebaseApp, firebaseDatabase,  firebaseStorage, storageRef }
